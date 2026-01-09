@@ -1,0 +1,2216 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assafa LMS | التوثيق التقني</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0b1120;
+            --bg-secondary: #131d2e;
+            --bg-tertiary: #1a2744;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-cyan: #00d2ff;
+            --accent-purple: #818cf8;
+            --accent-pink: #c084fc;
+            --accent-gold: #f0c14b;
+            --success: #4ade80;
+            --warning: #f9a875;
+            --error: #f87171;
+            --card-bg: rgba(30, 41, 59, 0.6);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --font-arabic: 'IBM Plex Sans Arabic', sans-serif;
+            --font-english: 'Outfit', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-arabic);
+            background: var(--bg-primary);
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(0, 210, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(129, 140, 248, 0.04) 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(192, 132, 252, 0.03) 0%, transparent 40%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            line-height: 1.8;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-cyan);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 30px;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 30%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.02em;
+            line-height: 1.3;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--accent-cyan);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h2::before {
+            content: '';
+            width: 4px;
+            height: 1.2em;
+            background: linear-gradient(180deg, var(--accent-cyan), var(--accent-purple));
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        h3::before {
+            content: '';
+            width: 3px;
+            height: 1em;
+            background: var(--accent-cyan);
+            border-radius: 2px;
+        }
+
+        p {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.9;
+        }
+
+        strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0, 210, 255, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            background: rgba(0, 210, 255, 0.15);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0, 210, 255, 0.4);
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.3);
+            animation: pulse-glow 3s ease-in-out infinite;
+        }
+
+        .hero-badge .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            animation: dot-pulse 1.5s ease-in-out infinite;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat .value {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, var(--accent-cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            font-family: var(--font-english);
+        }
+
+        .hero-stat .label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+
+        /* Animations */
+        @keyframes pulse-glow {
+            0%, 100% { 
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.8;
+                transform: scale(1.02);
+            }
+        }
+
+        @keyframes dot-pulse {
+            0%, 100% { 
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.4;
+                transform: scale(0.8);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        @keyframes slideInRight {
+            from { 
+                opacity: 0; 
+                transform: translateX(-30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(0); 
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Section */
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            font-family: var(--font-english);
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.4);
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 210, 255, 0.3);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .info-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0, 210, 255, 0.3);
+        }
+
+        /* Grids */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        /* Lists */
+        ul {
+            list-style: none;
+        }
+
+        li {
+            padding-right: 20px;
+            position: relative;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        li::before {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 10px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            box-shadow: 0 0 8px var(--accent-cyan);
+        }
+
+        /* Tags */
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .tag-cyan {
+            background: rgba(0, 210, 255, 0.15);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(0, 210, 255, 0.3);
+        }
+
+        .tag-purple {
+            background: rgba(129, 140, 248, 0.15);
+            color: var(--accent-purple);
+            border: 1px solid rgba(129, 140, 248, 0.3);
+        }
+
+        .tag-green {
+            background: rgba(74, 222, 128, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(74, 222, 128, 0.3);
+        }
+
+        .tag-orange {
+            background: rgba(249, 168, 117, 0.15);
+            color: var(--warning);
+            border: 1px solid rgba(249, 168, 117, 0.3);
+        }
+
+        .tag-pink {
+            background: rgba(192, 132, 252, 0.15);
+            color: var(--accent-pink);
+            border: 1px solid rgba(192, 132, 252, 0.3);
+        }
+
+        /* Metric Cards */
+        .metric-card {
+            background: linear-gradient(145deg, rgba(0, 210, 255, 0.08) 0%, rgba(0, 210, 255, 0.02) 100%);
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 210, 255, 0.2);
+        }
+
+        .metric-card.purple {
+            background: linear-gradient(145deg, rgba(129, 140, 248, 0.08) 0%, rgba(129, 140, 248, 0.02) 100%);
+            border-color: rgba(129, 140, 248, 0.2);
+        }
+
+        .metric-card.green {
+            background: linear-gradient(145deg, rgba(74, 222, 128, 0.08) 0%, rgba(74, 222, 128, 0.02) 100%);
+            border-color: rgba(74, 222, 128, 0.2);
+        }
+
+        .metric-card.orange {
+            background: linear-gradient(145deg, rgba(249, 168, 117, 0.08) 0%, rgba(249, 168, 117, 0.02) 100%);
+            border-color: rgba(249, 168, 117, 0.2);
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 800;
+            font-family: var(--font-english);
+            background: linear-gradient(135deg, #fff, var(--accent-cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+        }
+
+        .metric-card.purple .metric-value {
+            background: linear-gradient(135deg, #fff, var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .metric-card.green .metric-value {
+            background: linear-gradient(135deg, #fff, var(--success));
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .metric-card.orange .metric-value {
+            background: linear-gradient(135deg, #fff, var(--warning));
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 8px;
+        }
+
+        /* Tables */
+        .table-wrapper {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+            color: var(--accent-cyan);
+            padding: 16px 20px;
+            text-align: right;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        td {
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--card-border);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(0, 210, 255, 0.03);
+        }
+
+        /* Code Blocks */
+        .code-block {
+            background: #0d1117;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .code-header {
+            background: #161b22;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .code-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .code-dots span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .code-dots span:nth-child(1) { background: #ff5f56; }
+        .code-dots span:nth-child(2) { background: #ffbd2e; }
+        .code-dots span:nth-child(3) { background: #27ca3f; }
+
+        .code-lang {
+            font-size: 0.75rem;
+            color: var(--accent-cyan);
+            background: rgba(0, 210, 255, 0.15);
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-family: var(--font-english);
+        }
+
+        .code-content {
+            padding: 20px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #e6edf3;
+            line-height: 1.7;
+            direction: ltr;
+            text-align: left;
+            overflow-x: auto;
+            white-space: pre;
+            margin: 0;
+            background: transparent;
+        }
+
+        .code-content code {
+            display: block;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .code-content .folder { color: #79c0ff; }
+        .code-content .file { color: #a5d6ff; }
+        .code-content .comment { color: #8b949e; }
+
+        /* Progress Bars */
+        .progress-item {
+            margin-bottom: 16px;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .progress-label span:first-child {
+            color: #fff;
+        }
+
+        .progress-label span:last-child {
+            color: var(--text-secondary);
+            font-family: var(--font-english);
+        }
+
+        .progress-bar-bg {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .progress-bar-fill.cyan { 
+            background: linear-gradient(90deg, var(--accent-cyan), rgba(0, 210, 255, 0.5)); 
+        }
+        .progress-bar-fill.purple { 
+            background: linear-gradient(90deg, var(--accent-purple), rgba(129, 140, 248, 0.5)); 
+        }
+        .progress-bar-fill.green { 
+            background: linear-gradient(90deg, var(--success), rgba(74, 222, 128, 0.5)); 
+        }
+        .progress-bar-fill.orange { 
+            background: linear-gradient(90deg, var(--warning), rgba(249, 168, 117, 0.5)); 
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding-right: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            right: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--accent-cyan), var(--accent-purple), var(--success));
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-right: 50px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            right: -40px;
+            top: 5px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent-cyan);
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 0 15px var(--accent-cyan);
+        }
+
+        .timeline-item:nth-child(2)::before { background: var(--accent-purple); box-shadow: 0 0 15px var(--accent-purple); }
+        .timeline-item:nth-child(3)::before { background: var(--warning); box-shadow: 0 0 15px var(--warning); }
+        .timeline-item:nth-child(4)::before { background: var(--error); box-shadow: 0 0 15px var(--error); }
+        .timeline-item:nth-child(5)::before { background: var(--accent-pink); box-shadow: 0 0 15px var(--accent-pink); }
+        .timeline-item:nth-child(6)::before { background: var(--success); box-shadow: 0 0 15px var(--success); }
+
+        .timeline-content {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .timeline-date {
+            font-size: 0.8rem;
+            color: var(--accent-cyan);
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-family: var(--font-english);
+        }
+
+        /* TOC */
+        .toc {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(20px);
+            margin-bottom: 40px;
+        }
+
+        .toc-title {
+            font-size: 1.2rem;
+            color: var(--accent-cyan);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        .toc-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid transparent;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .toc-item:hover {
+            background: rgba(0, 210, 255, 0.08);
+            border-color: rgba(0, 210, 255, 0.3);
+            color: #fff;
+            transform: translateX(-5px);
+        }
+
+        .toc-number {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #fff;
+            font-family: var(--font-english);
+        }
+
+        /* SVG Diagrams Container */
+        .diagram-container {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(20px);
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+
+        .diagram-container svg {
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent-cyan), var(--accent-purple));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 210, 255, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(0, 210, 255, 0.2), rgba(129, 140, 248, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            font-size: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .feature-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Alert Boxes */
+        .alert {
+            padding: 20px 24px;
+            border-radius: 12px;
+            margin: 20px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            border: 1px solid;
+        }
+
+        .alert-icon {
+            font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .alert-info {
+            background: rgba(0, 210, 255, 0.08);
+            border-color: rgba(0, 210, 255, 0.3);
+        }
+
+        .alert-info .alert-icon { color: var(--accent-cyan); }
+
+        .alert-warning {
+            background: rgba(249, 168, 117, 0.08);
+            border-color: rgba(249, 168, 117, 0.3);
+        }
+
+        .alert-warning .alert-icon { color: var(--warning); }
+
+        .alert-success {
+            background: rgba(74, 222, 128, 0.08);
+            border-color: rgba(74, 222, 128, 0.3);
+        }
+
+        .alert-success .alert-icon { color: var(--success); }
+
+        .alert-content {
+            flex: 1;
+        }
+
+        .alert-title {
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .alert-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Tech Stack Cards */
+        .tech-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .tech-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 20px 40px rgba(0, 210, 255, 0.15);
+        }
+
+        .tech-logo {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+
+        .tech-name {
+            font-size: 1rem;
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .tech-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* Pipeline */
+        .pipeline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 20px 0;
+            overflow-x: auto;
+        }
+
+        .pipeline-step {
+            flex: 1;
+            min-width: 120px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .pipeline-step:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-3px);
+        }
+
+        .pipeline-step::after {
+            content: '→';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent-cyan);
+            font-size: 1.2rem;
+        }
+
+        .pipeline-step:first-child::after {
+            display: none;
+        }
+
+        .pipeline-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .pipeline-name {
+            font-size: 0.8rem;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .pipeline-desc {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        /* Color Palette Display */
+        .color-palette {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .color-group {
+            text-align: center;
+        }
+
+        .color-group-title {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .color-swatches {
+            display: flex;
+            gap: 10px;
+        }
+
+        .color-swatch {
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 8px;
+            font-size: 0.65rem;
+            font-family: var(--font-mono);
+            color: #fff;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .color-swatch:hover {
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--card-border);
+            padding: 40px 30px;
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .footer-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .footer-note {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--card-border);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .grid-3, .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            h1 { font-size: 2rem; }
+            .hero h1 { font-size: 2.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+            .container { padding: 0 20px; }
+            .section { padding: 50px 0; }
+            .hero { padding: 40px 20px; }
+            .hero h1 { font-size: 2rem; }
+            .hero-stats { gap: 20px; }
+            .pipeline { flex-direction: column; }
+            .pipeline-step::after { display: none; }
+        }
+
+        /* Print Styles */
+        @media print {
+            body { background: #fff; color: #000; }
+            .card, .info-card, .feature-card { 
+                background: #f5f5f5; 
+                border: 1px solid #ddd; 
+            }
+            .hero { min-height: auto; padding: 40px; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="pulse-dot"></span>
+                التوثيق التقني الشامل
+            </div>
+            <h1>تطبيق الصفا لإدارة التعليم</h1>
+            <p class="hero-subtitle">
+                منصة متكاملة لإدارة حلقات تحفيظ القرآن الكريم - تطبيق جوال بتقنية React Native
+            </p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="value">24</div>
+                    <div class="label">أسبوع تطوير</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="value">6</div>
+                    <div class="label">مراحل رئيسية</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="value">50+</div>
+                    <div class="label">ميزة متكاملة</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="value">2</div>
+                    <div class="label">منصة (iOS & Android)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <!-- Table of Contents -->
+        <nav class="toc animate-on-scroll">
+            <div class="toc-title">
+                📋 فهرس المحتويات
+            </div>
+            <div class="toc-grid">
+                <a href="#overview" class="toc-item">
+                    <span class="toc-number">1</span>
+                    نظرة عامة على المشروع
+                </a>
+                <a href="#tech-stack" class="toc-item">
+                    <span class="toc-number">2</span>
+                    التقنيات المستخدمة
+                </a>
+                <a href="#architecture" class="toc-item">
+                    <span class="toc-number">3</span>
+                    البنية المعمارية
+                </a>
+                <a href="#ux-design" class="toc-item">
+                    <span class="toc-number">4</span>
+                    تصميم تجربة المستخدم
+                </a>
+                <a href="#features" class="toc-item">
+                    <span class="toc-number">5</span>
+                    المميزات والوظائف
+                </a>
+                <a href="#design-system" class="toc-item">
+                    <span class="toc-number">6</span>
+                    نظام التصميم
+                </a>
+                <a href="#timeline" class="toc-item">
+                    <span class="toc-number">7</span>
+                    الجدول الزمني
+                </a>
+                <a href="#api" class="toc-item">
+                    <span class="toc-number">8</span>
+                    توثيق الـ API
+                </a>
+                <a href="#testing" class="toc-item">
+                    <span class="toc-number">9</span>
+                    استراتيجية الاختبار
+                </a>
+                <a href="#deployment" class="toc-item">
+                    <span class="toc-number">10</span>
+                    النشر والتوزيع
+                </a>
+            </div>
+        </nav>
+
+        <!-- Section 1: Overview -->
+        <section id="overview" class="section animate-on-scroll">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <h2>نظرة عامة على المشروع</h2>
+            </div>
+
+            <div class="card" style="margin-bottom: 30px;">
+                <h3>رؤية المشروع</h3>
+                <p>
+                    تطوير تطبيق جوال متكامل لنظام إدارة التعليم (LMS) يخدم حلقات تحفيظ القرآن الكريم، 
+                    يوفر تجربة سلسة للطلاب والمعلمين مع إمكانية تسجيل التلاوات ومتابعة التقدم والحضور.
+                </p>
+            </div>
+
+            <div class="grid-3">
+                <div class="metric-card">
+                    <div class="metric-value">React Native</div>
+                    <div class="metric-label">تقنية التطوير</div>
+                </div>
+                <div class="metric-card purple">
+                    <div class="metric-value">Expo</div>
+                    <div class="metric-label">إطار العمل</div>
+                </div>
+                <div class="metric-card green">
+                    <div class="metric-value">TypeScript</div>
+                    <div class="metric-label">لغة البرمجة</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px;">
+                <h3>أصحاب المصلحة</h3>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>الدور</th>
+                                <th>المسؤوليات</th>
+                                <th>الأولوية</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>الطلاب</strong></td>
+                                <td>استخدام التطبيق للتسميع وتتبع التقدم</td>
+                                <td><span class="tag tag-green">عالية</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>المعلمون</strong></td>
+                                <td>إدارة الحلقات والطلاب والتقييم</td>
+                                <td><span class="tag tag-green">عالية</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>أولياء الأمور</strong></td>
+                                <td>متابعة تقدم الأبناء</td>
+                                <td><span class="tag tag-orange">متوسطة</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>الإدارة</strong></td>
+                                <td>التقارير والإحصائيات الشاملة</td>
+                                <td><span class="tag tag-orange">متوسطة</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Tech Stack -->
+        <section id="tech-stack" class="section animate-on-scroll">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <h2>التقنيات المستخدمة</h2>
+            </div>
+
+            <div class="grid-4">
+                <div class="tech-card">
+                    <div class="tech-logo">⚛️</div>
+                    <div class="tech-name">React Native</div>
+                    <div class="tech-desc">تطوير التطبيق</div>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-logo">📱</div>
+                    <div class="tech-name">Expo SDK 52</div>
+                    <div class="tech-desc">إطار العمل</div>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-logo">🔷</div>
+                    <div class="tech-name">TypeScript</div>
+                    <div class="tech-desc">لغة البرمجة</div>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-logo">🎨</div>
+                    <div class="tech-name">NativeWind</div>
+                    <div class="tech-desc">التنسيق</div>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-logo">🔄</div>
+                    <div class="tech-name">Zustand</div>
+                    <div class="tech-desc">إدارة الحالة</div>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-logo">📡</div>
+                    <div class="tech-name">TanStack Query</div>
+                    <div class="tech-desc">جلب البيانات</div>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-logo">🔗</div>
+                    <div class="tech-name">Expo Router</div>
+                    <div class="tech-desc">التنقل</div>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-logo">🔐</div>
+                    <div class="tech-name">Expo SecureStore</div>
+                    <div class="tech-desc">الأمان</div>
+                </div>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 30px;">
+                <div class="alert-icon">💡</div>
+                <div class="alert-content">
+                    <div class="alert-title">لماذا هذه التقنيات؟</div>
+                    <p class="alert-text">
+                        تم اختيار هذه التقنيات لضمان أداء عالي، تجربة مستخدم سلسة، وسهولة الصيانة والتطوير المستقبلي.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Architecture -->
+        <section id="architecture" class="section animate-on-scroll">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <h2>البنية المعمارية</h2>
+            </div>
+
+            <div class="diagram-container">
+                <svg width="900" height="500" viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#00d2ff;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#0066cc;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#818cf8;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#6366f1;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#4ade80;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#22c55e;stop-opacity:1" />
+                        </linearGradient>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                    
+                    <!-- Background -->
+                    <rect width="900" height="500" fill="#0b1120"/>
+                    
+                    <!-- Mobile App Layer -->
+                    <rect x="50" y="30" width="800" height="140" rx="12" fill="#131d2e" stroke="#1e3a5f" stroke-width="1"/>
+                    <text x="450" y="55" text-anchor="middle" fill="#00d2ff" font-size="14" font-weight="600">طبقة العرض - Presentation Layer</text>
+                    
+                    <rect x="80" y="70" width="150" height="80" rx="8" fill="url(#cyanGrad)" filter="url(#glow)"/>
+                    <text x="155" y="105" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">الشاشات</text>
+                    <text x="155" y="125" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="10">Screens</text>
+                    
+                    <rect x="250" y="70" width="150" height="80" rx="8" fill="url(#purpleGrad)" filter="url(#glow)"/>
+                    <text x="325" y="105" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">المكونات</text>
+                    <text x="325" y="125" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="10">Components</text>
+                    
+                    <rect x="420" y="70" width="150" height="80" rx="8" fill="url(#greenGrad)" filter="url(#glow)"/>
+                    <text x="495" y="105" text-anchor="middle" fill="#fff" font-size="12" font-weight="600">التنقل</text>
+                    <text x="495" y="125" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="10">Navigation</text>
+                    
+                    <rect x="590" y="70" width="150" height="80" rx="8" fill="#f9a875" filter="url(#glow)"/>
+                    <text x="665" y="105" text-anchor="middle" fill="#0b1120" font-size="12" font-weight="600">الأنماط</text>
+                    <text x="665" y="125" text-anchor="middle" fill="rgba(0,0,0,0.7)" font-size="10">Styles</text>
+                    
+                    <!-- Business Logic Layer -->
+                    <rect x="50" y="190" width="800" height="120" rx="12" fill="#131d2e" stroke="#1e3a5f" stroke-width="1"/>
+                    <text x="450" y="215" text-anchor="middle" fill="#818cf8" font-size="14" font-weight="600">طبقة منطق الأعمال - Business Logic Layer</text>
+                    
+                    <rect x="100" y="235" width="200" height="55" rx="8" fill="#1a2744" stroke="#818cf8" stroke-width="1"/>
+                    <text x="200" y="265" text-anchor="middle" fill="#fff" font-size="11">Zustand Store - إدارة الحالة</text>
+                    
+                    <rect x="350" y="235" width="200" height="55" rx="8" fill="#1a2744" stroke="#818cf8" stroke-width="1"/>
+                    <text x="450" y="265" text-anchor="middle" fill="#fff" font-size="11">TanStack Query - جلب البيانات</text>
+                    
+                    <rect x="600" y="235" width="200" height="55" rx="8" fill="#1a2744" stroke="#818cf8" stroke-width="1"/>
+                    <text x="700" y="265" text-anchor="middle" fill="#fff" font-size="11">Custom Hooks - الخطافات</text>
+                    
+                    <!-- Data Layer -->
+                    <rect x="50" y="330" width="800" height="140" rx="12" fill="#131d2e" stroke="#1e3a5f" stroke-width="1"/>
+                    <text x="450" y="355" text-anchor="middle" fill="#4ade80" font-size="14" font-weight="600">طبقة البيانات - Data Layer</text>
+                    
+                    <rect x="80" y="375" width="170" height="75" rx="8" fill="#1a2744" stroke="#4ade80" stroke-width="1"/>
+                    <text x="165" y="405" text-anchor="middle" fill="#fff" font-size="11">API Services</text>
+                    <text x="165" y="425" text-anchor="middle" fill="#64748b" font-size="9">خدمات الـ API</text>
+                    
+                    <rect x="270" y="375" width="170" height="75" rx="8" fill="#1a2744" stroke="#4ade80" stroke-width="1"/>
+                    <text x="355" y="405" text-anchor="middle" fill="#fff" font-size="11">Local Storage</text>
+                    <text x="355" y="425" text-anchor="middle" fill="#64748b" font-size="9">التخزين المحلي</text>
+                    
+                    <rect x="460" y="375" width="170" height="75" rx="8" fill="#1a2744" stroke="#4ade80" stroke-width="1"/>
+                    <text x="545" y="405" text-anchor="middle" fill="#fff" font-size="11">Secure Store</text>
+                    <text x="545" y="425" text-anchor="middle" fill="#64748b" font-size="9">التخزين الآمن</text>
+                    
+                    <rect x="650" y="375" width="170" height="75" rx="8" fill="#1a2744" stroke="#4ade80" stroke-width="1"/>
+                    <text x="735" y="405" text-anchor="middle" fill="#fff" font-size="11">Cache Layer</text>
+                    <text x="735" y="425" text-anchor="middle" fill="#64748b" font-size="9">طبقة التخزين المؤقت</text>
+                    
+                    <!-- Connection Lines -->
+                    <line x1="450" y1="170" x2="450" y2="190" stroke="#00d2ff" stroke-width="2" stroke-dasharray="5,5"/>
+                    <line x1="450" y1="310" x2="450" y2="330" stroke="#818cf8" stroke-width="2" stroke-dasharray="5,5"/>
+                </svg>
+            </div>
+
+            <h3 style="margin-top: 30px;">هيكل المجلدات</h3>
+            <div class="code-block">
+                <div class="code-header">
+                    <div class="code-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <span class="code-lang">Project Structure</span>
+                </div>
+                <pre class="code-content"><code><span class="folder">📁 assafa-mobile/</span>
+├── <span class="folder">📁 app/</span>                      <span class="comment"># Expo Router screens</span>
+│   ├── <span class="folder">📁 (auth)/</span>               <span class="comment"># مجموعة شاشات المصادقة</span>
+│   ├── <span class="folder">📁 (student)/</span>            <span class="comment"># شاشات الطالب</span>
+│   ├── <span class="folder">📁 (teacher)/</span>            <span class="comment"># شاشات المعلم</span>
+│   └── <span class="file">_layout.tsx</span>
+├── <span class="folder">📁 components/</span>               <span class="comment"># المكونات المشتركة</span>
+│   ├── <span class="folder">📁 ui/</span>                   <span class="comment"># مكونات UI الأساسية</span>
+│   └── <span class="folder">📁 features/</span>             <span class="comment"># مكونات خاصة بالميزات</span>
+├── <span class="folder">📁 hooks/</span>                    <span class="comment"># Custom Hooks</span>
+├── <span class="folder">📁 services/</span>                 <span class="comment"># API Services</span>
+├── <span class="folder">📁 stores/</span>                   <span class="comment"># Zustand Stores</span>
+├── <span class="folder">📁 types/</span>                    <span class="comment"># TypeScript Types</span>
+├── <span class="folder">📁 utils/</span>                    <span class="comment"># Utility Functions</span>
+└── <span class="folder">📁 assets/</span>                   <span class="comment"># الصور والخطوط</span></code></pre>
+            </div>
+        </section>
+
+        <!-- Section 4: UX Design -->
+        <section id="ux-design" class="section animate-on-scroll">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <h2>تصميم تجربة المستخدم</h2>
+            </div>
+
+            <div class="grid-2" style="margin-bottom: 40px;">
+                <div class="info-card">
+                    <h3>المنهجية المتبعة</h3>
+                    <p>نتبع منهجية التصميم المتمحور حول المستخدم (UCD) مع التركيز على احتياجات الطلاب والمعلمين.</p>
+                    <div class="tags">
+                        <span class="tag tag-cyan">User-Centered Design</span>
+                        <span class="tag tag-purple">Iterative Process</span>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <h3>الأدوات المستخدمة</h3>
+                    <p>Figma للتصميم والنماذج الأولية، مع التركيز على تجربة RTL للغة العربية.</p>
+                    <div class="tags">
+                        <span class="tag tag-green">Figma</span>
+                        <span class="tag tag-orange">Prototyping</span>
+                    </div>
+                </div>
+            </div>
+
+            <h3>مراحل التصميم</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">المرحلة 1</div>
+                        <h3 style="margin-bottom: 8px;">البحث والاكتشاف</h3>
+                        <p style="margin: 0;">دراسة احتياجات المستخدمين وتحليل التطبيقات المنافسة.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">المرحلة 2</div>
+                        <h3 style="margin-bottom: 8px;">هندسة المعلومات</h3>
+                        <p style="margin: 0;">تصميم هيكل التطبيق وتدفق المستخدم.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">المرحلة 3</div>
+                        <h3 style="margin-bottom: 8px;">Wireframes</h3>
+                        <p style="margin: 0;">إنشاء رسومات أولية للشاشات الرئيسية.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">المرحلة 4</div>
+                        <h3 style="margin-bottom: 8px;">التصميم المرئي</h3>
+                        <p style="margin: 0;">تطبيق نظام التصميم وإنشاء واجهات عالية الدقة.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">المرحلة 5</div>
+                        <h3 style="margin-bottom: 8px;">النماذج التفاعلية</h3>
+                        <p style="margin: 0;">إنشاء نماذج قابلة للاختبار مع المستخدمين.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Features -->
+        <section id="features" class="section animate-on-scroll">
+            <div class="section-header">
+                <div class="section-number">5</div>
+                <h2>المميزات والوظائف</h2>
+            </div>
+
+            <!-- Student Features Map -->
+            <h3>خريطة مميزات الطالب</h3>
+            <div class="diagram-container">
+                <svg width="900" height="450" viewBox="0 0 900 450" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="centerGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#1d4ed8;stop-opacity:1" />
+                        </linearGradient>
+                        <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+                            <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.3"/>
+                        </filter>
+                        <filter id="glowCyan" x="-50%" y="-50%" width="200%" height="200%">
+                            <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#00d2ff" flood-opacity="0.4"/>
+                        </filter>
+                        <filter id="glowGreen" x="-50%" y="-50%" width="200%" height="200%">
+                            <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#4ade80" flood-opacity="0.4"/>
+                        </filter>
+                        <filter id="glowRed" x="-50%" y="-50%" width="200%" height="200%">
+                            <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#f87171" flood-opacity="0.4"/>
+                        </filter>
+                        <filter id="glowPurple" x="-50%" y="-50%" width="200%" height="200%">
+                            <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#c084fc" flood-opacity="0.4"/>
+                        </filter>
+                        <filter id="glowOrange" x="-50%" y="-50%" width="200%" height="200%">
+                            <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#f9a875" flood-opacity="0.4"/>
+                        </filter>
+                        <filter id="glowBlue" x="-50%" y="-50%" width="200%" height="200%">
+                            <feDropShadow dx="0" dy="0" stdDeviation="6" flood-color="#818cf8" flood-opacity="0.4"/>
+                        </filter>
+                    </defs>
+                    
+                    <rect width="900" height="450" fill="#0b1120"/>
+                    
+                    <!-- Background circles -->
+                    <circle cx="450" cy="225" r="160" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/>
+                    <circle cx="450" cy="225" r="120" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+                    
+                    <!-- Connection Lines - softer colors -->
+                    <line x1="380" y1="225" x2="180" y2="100" stroke="rgba(0,210,255,0.4)" stroke-width="2"/>
+                    <line x1="380" y1="225" x2="180" y2="350" stroke="rgba(74,222,128,0.4)" stroke-width="2"/>
+                    <line x1="450" y1="155" x2="450" y2="70" stroke="rgba(248,113,113,0.4)" stroke-width="2"/>
+                    <line x1="520" y1="225" x2="720" y2="100" stroke="rgba(192,132,252,0.4)" stroke-width="2"/>
+                    <line x1="520" y1="225" x2="720" y2="350" stroke="rgba(249,168,117,0.4)" stroke-width="2"/>
+                    <line x1="450" y1="295" x2="450" y2="380" stroke="rgba(129,140,248,0.4)" stroke-width="2"/>
+                    
+                    <!-- Center - My Classes -->
+                    <circle cx="450" cy="225" r="70" fill="url(#centerGrad)" filter="url(#softShadow)"/>
+                    <text x="450" y="215" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="18" font-weight="600">حلقاتي</text>
+                    <text x="450" y="245" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="Outfit, sans-serif" font-size="13">My Classes</text>
+                    
+                    <!-- Feature 1: Recitation - Cyan -->
+                    <circle cx="140" cy="100" r="55" fill="#131d2e" stroke="#00d2ff" stroke-width="2" filter="url(#glowCyan)"/>
+                    <text x="140" y="95" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="14" font-weight="500">التسميع</text>
+                    <text x="140" y="115" text-anchor="middle" fill="#00d2ff" font-family="Outfit, sans-serif" font-size="11">Recitation</text>
+                    
+                    <!-- Feature 2: Attendance - Green -->
+                    <circle cx="140" cy="350" r="55" fill="#131d2e" stroke="#4ade80" stroke-width="2" filter="url(#glowGreen)"/>
+                    <text x="140" y="345" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="14" font-weight="500">الحضور</text>
+                    <text x="140" y="365" text-anchor="middle" fill="#4ade80" font-family="Outfit, sans-serif" font-size="11">Attendance</text>
+                    
+                    <!-- Feature 3: Exams - Red/Coral -->
+                    <circle cx="450" cy="55" r="50" fill="#131d2e" stroke="#f87171" stroke-width="2" filter="url(#glowRed)"/>
+                    <text x="450" y="50" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="14" font-weight="500">الاختبارات</text>
+                    <text x="450" y="70" text-anchor="middle" fill="#f87171" font-family="Outfit, sans-serif" font-size="11">Exams</text>
+                    
+                    <!-- Feature 4: Homework - Purple -->
+                    <circle cx="760" cy="100" r="55" fill="#131d2e" stroke="#c084fc" stroke-width="2" filter="url(#glowPurple)"/>
+                    <text x="760" y="95" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="14" font-weight="500">الواجبات</text>
+                    <text x="760" y="115" text-anchor="middle" fill="#c084fc" font-family="Outfit, sans-serif" font-size="11">Homework</text>
+                    
+                    <!-- Feature 5: Notifications - Orange -->
+                    <circle cx="760" cy="350" r="55" fill="#131d2e" stroke="#f9a875" stroke-width="2" filter="url(#glowOrange)"/>
+                    <text x="760" y="345" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="14" font-weight="500">الإشعارات</text>
+                    <text x="760" y="365" text-anchor="middle" fill="#f9a875" font-family="Outfit, sans-serif" font-size="11">Notifications</text>
+                    
+                    <!-- Feature 6: Progress - Indigo -->
+                    <circle cx="450" cy="395" r="50" fill="#131d2e" stroke="#818cf8" stroke-width="2" filter="url(#glowBlue)"/>
+                    <text x="450" y="390" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="14" font-weight="500">التقدم</text>
+                    <text x="450" y="410" text-anchor="middle" fill="#818cf8" font-family="Outfit, sans-serif" font-size="11">Progress</text>
+                </svg>
+            </div>
+
+            <!-- Teacher Features Map -->
+            <h3 style="margin-top: 40px;">خريطة مميزات المعلم</h3>
+            <div class="diagram-container">
+                <svg width="900" height="340" viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="900" height="340" fill="#0b1120"/>
+                    
+                    <!-- Dashboard Header - Center Top -->
+                    <rect x="350" y="20" width="200" height="55" rx="10" fill="#1a2744" stroke="rgba(59,130,246,0.6)" stroke-width="1.5"/>
+                    <text x="450" y="42" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="13" font-weight="500">لوحة التحكم</text>
+                    <text x="450" y="60" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="Outfit, sans-serif" font-size="10">Dashboard</text>
+                    
+                    <!-- Connection from Dashboard -->
+                    <line x1="450" y1="75" x2="450" y2="95" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+                    
+                    <!-- Branch Lines -->
+                    <line x1="450" y1="95" x2="112" y2="120" stroke="rgba(0,210,255,0.3)" stroke-width="1.5"/>
+                    <line x1="450" y1="95" x2="337" y2="120" stroke="rgba(74,222,128,0.3)" stroke-width="1.5"/>
+                    <line x1="450" y1="95" x2="562" y2="120" stroke="rgba(248,113,113,0.3)" stroke-width="1.5"/>
+                    <line x1="450" y1="95" x2="787" y2="120" stroke="rgba(192,132,252,0.3)" stroke-width="1.5"/>
+                    
+                    <!-- ===== Section 1: Students (center at x=112) ===== -->
+                    <rect x="22" y="120" width="180" height="55" rx="8" fill="#131d2e" stroke="#00d2ff" stroke-width="1.5"/>
+                    <text x="112" y="145" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="12" font-weight="500">إدارة الطلاب</text>
+                    <text x="112" y="162" text-anchor="middle" fill="#00d2ff" font-family="Outfit, sans-serif" font-size="9">Students Management</text>
+                    
+                    <!-- Sub lines -->
+                    <line x1="67" y1="175" x2="67" y2="210" stroke="rgba(0,210,255,0.2)" stroke-width="1"/>
+                    <line x1="157" y1="175" x2="157" y2="210" stroke="rgba(0,210,255,0.2)" stroke-width="1"/>
+                    
+                    <!-- Sub boxes -->
+                    <rect x="22" y="210" width="90" height="40" rx="6" fill="#1a2744" stroke="rgba(0,210,255,0.15)" stroke-width="1"/>
+                    <text x="67" y="235" text-anchor="middle" fill="#8899a6" font-family="IBM Plex Sans Arabic, sans-serif" font-size="10">قائمة الطلاب</text>
+                    
+                    <rect x="122" y="210" width="80" height="40" rx="6" fill="#1a2744" stroke="rgba(0,210,255,0.15)" stroke-width="1"/>
+                    <text x="162" y="235" text-anchor="middle" fill="#8899a6" font-family="IBM Plex Sans Arabic, sans-serif" font-size="10">التقييمات</text>
+                    
+                    <!-- ===== Section 2: Classes (center at x=337) ===== -->
+                    <rect x="247" y="120" width="180" height="55" rx="8" fill="#131d2e" stroke="#4ade80" stroke-width="1.5"/>
+                    <text x="337" y="145" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="12" font-weight="500">إدارة الحلقات</text>
+                    <text x="337" y="162" text-anchor="middle" fill="#4ade80" font-family="Outfit, sans-serif" font-size="9">Classes Management</text>
+                    
+                    <!-- Sub lines -->
+                    <line x1="292" y1="175" x2="292" y2="210" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                    <line x1="382" y1="175" x2="382" y2="210" stroke="rgba(74,222,128,0.2)" stroke-width="1"/>
+                    
+                    <!-- Sub boxes -->
+                    <rect x="247" y="210" width="90" height="40" rx="6" fill="#1a2744" stroke="rgba(74,222,128,0.15)" stroke-width="1"/>
+                    <text x="292" y="235" text-anchor="middle" fill="#8899a6" font-family="IBM Plex Sans Arabic, sans-serif" font-size="10">الجدول</text>
+                    
+                    <rect x="347" y="210" width="80" height="40" rx="6" fill="#1a2744" stroke="rgba(74,222,128,0.15)" stroke-width="1"/>
+                    <text x="387" y="235" text-anchor="middle" fill="#8899a6" font-family="IBM Plex Sans Arabic, sans-serif" font-size="10">الحضور</text>
+                    
+                    <!-- ===== Section 3: Exams (center at x=562) ===== -->
+                    <rect x="472" y="120" width="180" height="55" rx="8" fill="#131d2e" stroke="#f87171" stroke-width="1.5"/>
+                    <text x="562" y="145" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="12" font-weight="500">إدارة الاختبارات</text>
+                    <text x="562" y="162" text-anchor="middle" fill="#f87171" font-family="Outfit, sans-serif" font-size="9">Exams Management</text>
+                    
+                    <!-- Sub lines -->
+                    <line x1="517" y1="175" x2="517" y2="210" stroke="rgba(248,113,113,0.2)" stroke-width="1"/>
+                    <line x1="607" y1="175" x2="607" y2="210" stroke="rgba(248,113,113,0.2)" stroke-width="1"/>
+                    
+                    <!-- Sub boxes -->
+                    <rect x="472" y="210" width="90" height="40" rx="6" fill="#1a2744" stroke="rgba(248,113,113,0.15)" stroke-width="1"/>
+                    <text x="517" y="235" text-anchor="middle" fill="#8899a6" font-family="IBM Plex Sans Arabic, sans-serif" font-size="10">إنشاء اختبار</text>
+                    
+                    <rect x="572" y="210" width="80" height="40" rx="6" fill="#1a2744" stroke="rgba(248,113,113,0.15)" stroke-width="1"/>
+                    <text x="612" y="235" text-anchor="middle" fill="#8899a6" font-family="IBM Plex Sans Arabic, sans-serif" font-size="10">النتائج</text>
+                    
+                    <!-- ===== Section 4: Homework (center at x=787) ===== -->
+                    <rect x="697" y="120" width="180" height="55" rx="8" fill="#131d2e" stroke="#c084fc" stroke-width="1.5"/>
+                    <text x="787" y="145" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="12" font-weight="500">إدارة الواجبات</text>
+                    <text x="787" y="162" text-anchor="middle" fill="#c084fc" font-family="Outfit, sans-serif" font-size="9">Homework Management</text>
+                    
+                    <!-- Sub lines -->
+                    <line x1="742" y1="175" x2="742" y2="210" stroke="rgba(192,132,252,0.2)" stroke-width="1"/>
+                    <line x1="832" y1="175" x2="832" y2="210" stroke="rgba(192,132,252,0.2)" stroke-width="1"/>
+                    
+                    <!-- Sub boxes -->
+                    <rect x="697" y="210" width="90" height="40" rx="6" fill="#1a2744" stroke="rgba(192,132,252,0.15)" stroke-width="1"/>
+                    <text x="742" y="235" text-anchor="middle" fill="#8899a6" font-family="IBM Plex Sans Arabic, sans-serif" font-size="10">إضافة واجب</text>
+                    
+                    <rect x="797" y="210" width="80" height="40" rx="6" fill="#1a2744" stroke="rgba(192,132,252,0.15)" stroke-width="1"/>
+                    <text x="837" y="235" text-anchor="middle" fill="#8899a6" font-family="IBM Plex Sans Arabic, sans-serif" font-size="10">المتابعة</text>
+                </svg>
+            </div>
+
+            <!-- Features List -->
+            <div class="grid-2" style="margin-top: 40px;">
+                <div class="feature-card">
+                    <div class="feature-icon">🎤</div>
+                    <div class="feature-title">تسجيل التلاوات</div>
+                    <div class="feature-desc">تسجيل صوتي للتلاوات مع إمكانية إعادة الاستماع والتقييم من قبل المعلم.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">تتبع التقدم</div>
+                    <div class="feature-desc">رسوم بيانية تفاعلية توضح مستوى تقدم الطالب في الحفظ والمراجعة.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📅</div>
+                    <div class="feature-title">إدارة الحضور</div>
+                    <div class="feature-desc">تسجيل الحضور والغياب مع إحصائيات شهرية وتقارير تفصيلية.</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <div class="feature-title">الإشعارات الذكية</div>
+                    <div class="feature-desc">إشعارات فورية للواجبات والاختبارات والتنبيهات المهمة.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 6: Design System -->
+        <section id="design-system" class="section animate-on-scroll">
+            <div class="section-header">
+                <div class="section-number">6</div>
+                <h2>نظام التصميم</h2>
+            </div>
+
+            <h3>لوحة الألوان</h3>
+            <div class="diagram-container" style="padding: 40px;">
+                <div style="display: flex; flex-wrap: wrap; gap: 50px; justify-content: center; align-items: flex-start;">
+                    <!-- Primary Colors -->
+                    <div style="text-align: center;">
+                        <div style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 16px; font-weight: 500;">الألوان الأساسية</div>
+                        <div style="display: flex; gap: 12px;">
+                            <div style="width: 65px; height: 80px; background: #0A1628; border-radius: 12px; display: flex; flex-direction: column; justify-content: flex-end; padding: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05);">
+                                <span style="font-size: 0.6rem; color: rgba(255,255,255,0.7); font-family: 'JetBrains Mono', monospace;">#0A1628</span>
+                            </div>
+                            <div style="width: 65px; height: 80px; background: #1A3A5C; border-radius: 12px; display: flex; flex-direction: column; justify-content: flex-end; padding: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05);">
+                                <span style="font-size: 0.6rem; color: rgba(255,255,255,0.8); font-family: 'JetBrains Mono', monospace;">#1A3A5C</span>
+                            </div>
+                            <div style="width: 65px; height: 80px; background: #2D5A87; border-radius: 12px; display: flex; flex-direction: column; justify-content: flex-end; padding: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05);">
+                                <span style="font-size: 0.6rem; color: #fff; font-family: 'JetBrains Mono', monospace;">#2D5A87</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Secondary Colors -->
+                    <div style="text-align: center;">
+                        <div style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 16px; font-weight: 500;">الألوان الثانوية</div>
+                        <div style="display: flex; gap: 12px;">
+                            <div style="width: 65px; height: 80px; background: #B8860B; border-radius: 12px; display: flex; flex-direction: column; justify-content: flex-end; padding: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+                                <span style="font-size: 0.6rem; color: #fff; font-family: 'JetBrains Mono', monospace;">#B8860B</span>
+                            </div>
+                            <div style="width: 65px; height: 80px; background: #D4A017; border-radius: 12px; display: flex; flex-direction: column; justify-content: flex-end; padding: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+                                <span style="font-size: 0.6rem; color: #fff; font-family: 'JetBrains Mono', monospace;">#D4A017</span>
+                            </div>
+                            <div style="width: 65px; height: 80px; background: #F0C14B; border-radius: 12px; display: flex; flex-direction: column; justify-content: flex-end; padding: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+                                <span style="font-size: 0.6rem; color: #1a1a1a; font-family: 'JetBrains Mono', monospace;">#F0C14B</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Semantic Colors -->
+                    <div style="text-align: center;">
+                        <div style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 16px; font-weight: 500;">ألوان الحالة</div>
+                        <div style="display: flex; gap: 12px;">
+                            <div style="width: 65px; height: 80px; background: #4ade80; border-radius: 12px; display: flex; flex-direction: column; justify-content: flex-end; padding: 8px; box-shadow: 0 4px 15px rgba(74,222,128,0.2);">
+                                <span style="font-size: 0.6rem; color: #0a2010; font-family: 'JetBrains Mono', monospace;">#4ade80</span>
+                            </div>
+                            <div style="width: 65px; height: 80px; background: #f9a875; border-radius: 12px; display: flex; flex-direction: column; justify-content: flex-end; padding: 8px; box-shadow: 0 4px 15px rgba(249,168,117,0.2);">
+                                <span style="font-size: 0.6rem; color: #2a1a10; font-family: 'JetBrains Mono', monospace;">#f9a875</span>
+                            </div>
+                            <div style="width: 65px; height: 80px; background: #f87171; border-radius: 12px; display: flex; flex-direction: column; justify-content: flex-end; padding: 8px; box-shadow: 0 4px 15px rgba(248,113,113,0.2);">
+                                <span style="font-size: 0.6rem; color: #fff; font-family: 'JetBrains Mono', monospace;">#f87171</span>
+                            </div>
+                            <div style="width: 65px; height: 80px; background: #00d2ff; border-radius: 12px; display: flex; flex-direction: column; justify-content: flex-end; padding: 8px; box-shadow: 0 4px 15px rgba(0,210,255,0.2);">
+                                <span style="font-size: 0.6rem; color: #0a1a20; font-family: 'JetBrains Mono', monospace;">#00d2ff</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-2" style="margin-top: 40px;">
+                <div class="info-card">
+                    <h3>الخطوط</h3>
+                    <ul>
+                        <li><strong>العربية:</strong> IBM Plex Sans Arabic</li>
+                        <li><strong>الإنجليزية:</strong> Outfit / Inter</li>
+                        <li><strong>الأكواد:</strong> JetBrains Mono</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3>المكونات</h3>
+                    <ul>
+                        <li>أزرار بتدرجات متعددة</li>
+                        <li>حقول إدخال مخصصة</li>
+                        <li>بطاقات تفاعلية</li>
+                        <li>نوافذ منبثقة</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 7: Timeline -->
+        <section id="timeline" class="section animate-on-scroll">
+            <div class="section-header">
+                <div class="section-number">7</div>
+                <h2>الجدول الزمني</h2>
+            </div>
+
+            <div class="grid-4" style="margin-bottom: 40px;">
+                <div class="metric-card">
+                    <div class="metric-value">24</div>
+                    <div class="metric-label">أسبوع</div>
+                </div>
+                <div class="metric-card purple">
+                    <div class="metric-value">6</div>
+                    <div class="metric-label">مراحل</div>
+                </div>
+                <div class="metric-card green">
+                    <div class="metric-value">2</div>
+                    <div class="metric-label">منصات</div>
+                </div>
+                <div class="metric-card orange">
+                    <div class="metric-value">50+</div>
+                    <div class="metric-label">شاشة</div>
+                </div>
+            </div>
+
+            <!-- Timeline Diagram -->
+            <div class="diagram-container">
+                <svg width="900" height="220" viewBox="0 0 900 220" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="900" height="220" fill="#0b1120"/>
+                    
+                    <!-- Timeline Base Line -->
+                    <line x1="70" y1="120" x2="830" y2="120" stroke="rgba(255,255,255,0.15)" stroke-width="3" stroke-linecap="round"/>
+                    
+                    <!-- Phase 1 - Foundation -->
+                    <rect x="45" y="40" width="120" height="55" rx="10" fill="#131d2e" stroke="#00d2ff" stroke-width="1.5"/>
+                    <text x="105" y="72" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="12" font-weight="500">البنية التحتية</text>
+                    <circle cx="105" cy="120" r="10" fill="#00d2ff"/>
+                    <text x="105" y="150" text-anchor="middle" fill="#94a3b8" font-family="IBM Plex Sans Arabic, sans-serif" font-size="10">أسبوع 1-4</text>
+                    <text x="105" y="168" text-anchor="middle" fill="#00d2ff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="9">4 أسابيع</text>
+                    
+                    <!-- Phase 2 - Auth -->
+                    <rect x="185" y="40" width="120" height="55" rx="10" fill="#131d2e" stroke="#4ade80" stroke-width="1.5"/>
+                    <text x="245" y="72" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="12" font-weight="500">المصادقة</text>
+                    <circle cx="245" cy="120" r="10" fill="#4ade80"/>
+                    <text x="245" y="150" text-anchor="middle" fill="#94a3b8" font-family="IBM Plex Sans Arabic, sans-serif" font-size="10">أسبوع 5-7</text>
+                    <text x="245" y="168" text-anchor="middle" fill="#4ade80" font-family="IBM Plex Sans Arabic, sans-serif" font-size="9">3 أسابيع</text>
+                    
+                    <!-- Phase 3 - Student -->
+                    <rect x="325" y="40" width="120" height="55" rx="10" fill="#131d2e" stroke="#f9a875" stroke-width="1.5"/>
+                    <text x="385" y="72" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="12" font-weight="500">ميزات الطالب</text>
+                    <circle cx="385" cy="120" r="10" fill="#f9a875"/>
+                    <text x="385" y="150" text-anchor="middle" fill="#94a3b8" font-family="IBM Plex Sans Arabic, sans-serif" font-size="10">أسبوع 8-13</text>
+                    <text x="385" y="168" text-anchor="middle" fill="#f9a875" font-family="IBM Plex Sans Arabic, sans-serif" font-size="9">6 أسابيع</text>
+                    
+                    <!-- Phase 4 - Teacher -->
+                    <rect x="465" y="40" width="120" height="55" rx="10" fill="#131d2e" stroke="#f87171" stroke-width="1.5"/>
+                    <text x="525" y="72" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="12" font-weight="500">ميزات المعلم</text>
+                    <circle cx="525" cy="120" r="10" fill="#f87171"/>
+                    <text x="525" y="150" text-anchor="middle" fill="#94a3b8" font-family="IBM Plex Sans Arabic, sans-serif" font-size="10">أسبوع 14-19</text>
+                    <text x="525" y="168" text-anchor="middle" fill="#f87171" font-family="IBM Plex Sans Arabic, sans-serif" font-size="9">6 أسابيع</text>
+                    
+                    <!-- Phase 5 - Testing -->
+                    <rect x="605" y="40" width="120" height="55" rx="10" fill="#131d2e" stroke="#c084fc" stroke-width="1.5"/>
+                    <text x="665" y="72" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="12" font-weight="500">الاختبار</text>
+                    <circle cx="665" cy="120" r="10" fill="#c084fc"/>
+                    <text x="665" y="150" text-anchor="middle" fill="#94a3b8" font-family="IBM Plex Sans Arabic, sans-serif" font-size="10">أسبوع 20-22</text>
+                    <text x="665" y="168" text-anchor="middle" fill="#c084fc" font-family="IBM Plex Sans Arabic, sans-serif" font-size="9">3 أسابيع</text>
+                    
+                    <!-- Phase 6 - Deploy -->
+                    <rect x="745" y="40" width="110" height="55" rx="10" fill="#131d2e" stroke="#818cf8" stroke-width="1.5"/>
+                    <text x="800" y="72" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="12" font-weight="500">النشر</text>
+                    <circle cx="800" cy="120" r="10" fill="#818cf8"/>
+                    <text x="800" y="150" text-anchor="middle" fill="#94a3b8" font-family="IBM Plex Sans Arabic, sans-serif" font-size="10">أسبوع 23-24</text>
+                    <text x="800" y="168" text-anchor="middle" fill="#818cf8" font-family="IBM Plex Sans Arabic, sans-serif" font-size="9">2 أسابيع</text>
+                </svg>
+            </div>
+
+            <h3 style="margin-top: 40px;">تفاصيل المراحل</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>المرحلة</th>
+                            <th>المدة</th>
+                            <th>المخرجات</th>
+                            <th>الحالة</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>البنية التحتية</strong></td>
+                            <td>4 أسابيع</td>
+                            <td>إعداد المشروع، هيكل المجلدات، المكونات الأساسية</td>
+                            <td><span class="tag tag-cyan">التخطيط</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>نظام المصادقة</strong></td>
+                            <td>3 أسابيع</td>
+                            <td>تسجيل الدخول، التسجيل، إدارة الجلسات</td>
+                            <td><span class="tag tag-cyan">التخطيط</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>ميزات الطالب</strong></td>
+                            <td>6 أسابيع</td>
+                            <td>لوحة التحكم، التسميع، الواجبات، الحضور</td>
+                            <td><span class="tag tag-cyan">التخطيط</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>ميزات المعلم</strong></td>
+                            <td>6 أسابيع</td>
+                            <td>إدارة الطلاب، الحلقات، التقييم</td>
+                            <td><span class="tag tag-cyan">التخطيط</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>الاختبار</strong></td>
+                            <td>3 أسابيع</td>
+                            <td>اختبارات الوحدات، E2E، اختبار المستخدم</td>
+                            <td><span class="tag tag-cyan">التخطيط</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>النشر</strong></td>
+                            <td>2 أسابيع</td>
+                            <td>App Store، Google Play، التوثيق</td>
+                            <td><span class="tag tag-cyan">التخطيط</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Section 8: API -->
+        <section id="api" class="section animate-on-scroll">
+            <div class="section-header">
+                <div class="section-number">8</div>
+                <h2>توثيق الـ API</h2>
+            </div>
+
+            <div class="alert alert-info">
+                <div class="alert-icon">🔗</div>
+                <div class="alert-content">
+                    <div class="alert-title">RESTful API</div>
+                    <p class="alert-text">يتصل التطبيق بالـ Backend الحالي عبر RESTful API مع مصادقة JWT.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px;">نقاط النهاية الرئيسية</h3>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <div class="code-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <span class="code-lang">Authentication</span>
+                </div>
+                <pre class="code-content"><code>POST   /api/auth/login           <span class="comment"># تسجيل الدخول</span>
+POST   /api/auth/register        <span class="comment"># إنشاء حساب جديد</span>
+POST   /api/auth/refresh         <span class="comment"># تجديد التوكن</span>
+POST   /api/auth/logout          <span class="comment"># تسجيل الخروج</span>
+POST   /api/auth/forgot-password <span class="comment"># استعادة كلمة المرور</span></code></pre>
+            </div>
+
+            <div class="code-block">
+                <div class="code-header">
+                    <div class="code-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <span class="code-lang">Student Endpoints</span>
+                </div>
+                <pre class="code-content"><code>GET    /api/student/dashboard    <span class="comment"># بيانات لوحة التحكم</span>
+GET    /api/student/classes      <span class="comment"># قائمة الحلقات</span>
+GET    /api/student/attendance   <span class="comment"># سجل الحضور</span>
+POST   /api/student/recitation   <span class="comment"># رفع تسجيل التلاوة</span>
+GET    /api/student/homework     <span class="comment"># الواجبات المطلوبة</span>
+GET    /api/student/exams        <span class="comment"># الاختبارات القادمة</span>
+GET    /api/student/progress     <span class="comment"># تقدم الحفظ</span></code></pre>
+            </div>
+
+            <div class="code-block">
+                <div class="code-header">
+                    <div class="code-dots">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <span class="code-lang">Teacher Endpoints</span>
+                </div>
+                <pre class="code-content"><code>GET    /api/teacher/dashboard    <span class="comment"># لوحة تحكم المعلم</span>
+GET    /api/teacher/students     <span class="comment"># قائمة الطلاب</span>
+POST   /api/teacher/attendance   <span class="comment"># تسجيل الحضور</span>
+POST   /api/teacher/evaluation   <span class="comment"># تقييم الطالب</span>
+POST   /api/teacher/homework     <span class="comment"># إضافة واجب</span>
+POST   /api/teacher/exam         <span class="comment"># إنشاء اختبار</span>
+GET    /api/teacher/reports      <span class="comment"># التقارير</span></code></pre>
+            </div>
+        </section>
+
+        <!-- Section 9: Testing -->
+        <section id="testing" class="section animate-on-scroll">
+            <div class="section-header">
+                <div class="section-number">9</div>
+                <h2>استراتيجية الاختبار</h2>
+            </div>
+
+            <div class="grid-2">
+                <div class="info-card">
+                    <h3>اختبارات الوحدات</h3>
+                    <p>اختبار الدوال والـ Hooks المخصصة باستخدام Jest.</p>
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>التغطية المستهدفة</span>
+                            <span>80%</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill cyan" style="width: 80%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <h3>اختبارات المكونات</h3>
+                    <p>اختبار المكونات بشكل منعزل باستخدام React Testing Library.</p>
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>التغطية المستهدفة</span>
+                            <span>70%</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill purple" style="width: 70%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <h3>اختبارات E2E</h3>
+                    <p>اختبار تدفقات المستخدم الكاملة باستخدام Detox.</p>
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>السيناريوهات</span>
+                            <span>15+</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill green" style="width: 60%;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <h3>الاختبار اليدوي</h3>
+                    <p>اختبار على أجهزة حقيقية iOS و Android.</p>
+                    <div class="progress-item">
+                        <div class="progress-label">
+                            <span>الأجهزة المستهدفة</span>
+                            <span>10+</span>
+                        </div>
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill orange" style="width: 50%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 10: Deployment -->
+        <section id="deployment" class="section animate-on-scroll">
+            <div class="section-header">
+                <div class="section-number">10</div>
+                <h2>النشر والتوزيع</h2>
+            </div>
+
+            <h3>خط أنابيب CI/CD</h3>
+            <div class="diagram-container">
+                <svg width="900" height="160" viewBox="0 0 900 160" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="900" height="160" fill="#0b1120"/>
+                    
+                    <!-- Pipeline Connection Line -->
+                    <line x1="90" y1="80" x2="810" y2="80" stroke="rgba(255,255,255,0.1)" stroke-width="3" stroke-linecap="round"/>
+                    
+                    <!-- Step 1 -->
+                    <rect x="30" y="45" width="120" height="70" rx="12" fill="#131d2e" stroke="rgba(0,210,255,0.5)" stroke-width="1.5"/>
+                    <text x="90" y="72" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="11">📤 Git Push</text>
+                    <text x="90" y="92" text-anchor="middle" fill="#64748b" font-family="IBM Plex Sans Arabic, sans-serif" font-size="9">دفع الكود</text>
+                    
+                    <text x="165" y="84" text-anchor="middle" fill="rgba(0,210,255,0.6)" font-size="16">→</text>
+                    
+                    <!-- Step 2 -->
+                    <rect x="175" y="45" width="120" height="70" rx="12" fill="#131d2e" stroke="rgba(129,140,248,0.5)" stroke-width="1.5"/>
+                    <text x="235" y="72" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="11">🔍 Lint & Test</text>
+                    <text x="235" y="92" text-anchor="middle" fill="#64748b" font-family="IBM Plex Sans Arabic, sans-serif" font-size="9">الفحص والاختبار</text>
+                    
+                    <text x="310" y="84" text-anchor="middle" fill="rgba(129,140,248,0.6)" font-size="16">→</text>
+                    
+                    <!-- Step 3 -->
+                    <rect x="320" y="45" width="120" height="70" rx="12" fill="#131d2e" stroke="rgba(74,222,128,0.5)" stroke-width="1.5"/>
+                    <text x="380" y="72" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="11">🏗️ EAS Build</text>
+                    <text x="380" y="92" text-anchor="middle" fill="#64748b" font-family="IBM Plex Sans Arabic, sans-serif" font-size="9">بناء التطبيق</text>
+                    
+                    <text x="455" y="84" text-anchor="middle" fill="rgba(74,222,128,0.6)" font-size="16">→</text>
+                    
+                    <!-- Step 4 -->
+                    <rect x="465" y="45" width="120" height="70" rx="12" fill="#131d2e" stroke="rgba(249,168,117,0.5)" stroke-width="1.5"/>
+                    <text x="525" y="72" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="11">🧪 Beta Test</text>
+                    <text x="525" y="92" text-anchor="middle" fill="#64748b" font-family="IBM Plex Sans Arabic, sans-serif" font-size="9">اختبار بيتا</text>
+                    
+                    <text x="600" y="84" text-anchor="middle" fill="rgba(249,168,117,0.6)" font-size="16">→</text>
+                    
+                    <!-- Step 5 -->
+                    <rect x="610" y="45" width="120" height="70" rx="12" fill="#131d2e" stroke="rgba(192,132,252,0.5)" stroke-width="1.5"/>
+                    <text x="670" y="72" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="11">✅ Review</text>
+                    <text x="670" y="92" text-anchor="middle" fill="#64748b" font-family="IBM Plex Sans Arabic, sans-serif" font-size="9">المراجعة</text>
+                    
+                    <text x="745" y="84" text-anchor="middle" fill="rgba(192,132,252,0.6)" font-size="16">→</text>
+                    
+                    <!-- Step 6 -->
+                    <rect x="755" y="45" width="115" height="70" rx="12" fill="#131d2e" stroke="rgba(59,130,246,0.7)" stroke-width="1.5"/>
+                    <text x="812" y="72" text-anchor="middle" fill="#fff" font-family="IBM Plex Sans Arabic, sans-serif" font-size="11">🚀 Production</text>
+                    <text x="812" y="92" text-anchor="middle" fill="#64748b" font-family="IBM Plex Sans Arabic, sans-serif" font-size="9">الإنتاج</text>
+                </svg>
+            </div>
+
+            <div class="grid-2" style="margin-top: 40px;">
+                <div class="info-card">
+                    <h3>متطلبات App Store (iOS)</h3>
+                    <ul>
+                        <li>حساب Apple Developer ($99/سنة)</li>
+                        <li>شهادات التوقيع والـ Provisioning</li>
+                        <li>Screenshots لجميع أحجام الشاشات</li>
+                        <li>سياسة الخصوصية</li>
+                        <li>وصف التطبيق (AR/EN)</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3>متطلبات Google Play (Android)</h3>
+                    <ul>
+                        <li>حساب Google Play Developer ($25)</li>
+                        <li>Keystore للتوقيع</li>
+                        <li>Screenshots وFeature Graphic</li>
+                        <li>سياسة الخصوصية</li>
+                        <li>تصنيف المحتوى</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Next Steps -->
+        <section class="section animate-on-scroll">
+            <div class="card" style="text-align: center; padding: 50px;">
+                <h2 style="justify-content: center;">الخطوات التالية</h2>
+                <p style="max-width: 600px; margin: 20px auto;">
+                    للبدء في التطوير، نحتاج إلى تأكيد المتطلبات ومراجعة هذا التوثيق معكم.
+                </p>
+                <div class="tags" style="justify-content: center; margin-top: 20px;">
+                    <span class="tag tag-cyan">مراجعة المتطلبات</span>
+                    <span class="tag tag-purple">الموافقة على التصميم</span>
+                    <span class="tag tag-green">بدء التطوير</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer style="background: linear-gradient(180deg, #0b1120 0%, #0a0f1a 100%); padding: 60px 30px 40px; text-align: center; margin-top: 80px; border-top: 1px solid rgba(0,210,255,0.1);">
+        
+        <!-- Primeflow Brand -->
+        <div style="margin-bottom: 40px;">
+            <p style="color: #64748b; font-size: 0.75rem; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 3px;">تم إعداد هذه الوثيقة بواسطة</p>
+            <div style="display: inline-block; padding: 25px 50px; background: linear-gradient(145deg, rgba(0,210,255,0.08), rgba(129,140,248,0.05)); border: 1px solid rgba(0,210,255,0.15); border-radius: 16px;">
+                <div style="font-size: 2.2rem; font-weight: 800; font-family: 'Outfit', sans-serif; background: linear-gradient(135deg, #00d2ff 0%, #818cf8 50%, #c084fc 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -1px; margin-bottom: 5px;">Primeflow</div>
+                <div style="color: #94a3b8; font-size: 0.7rem; font-family: 'Outfit', sans-serif; letter-spacing: 4px; text-transform: uppercase;">Digital Consulting</div>
+            </div>
+        </div>
+        
+        <!-- Document Info -->
+        <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-bottom: 30px;">
+            <div style="display: flex; align-items: center; gap: 8px; color: #64748b; font-size: 0.8rem;">
+                <span style="color: #00d2ff;">📋</span>
+                <span>Assafa LMS</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; color: #64748b; font-size: 0.8rem;">
+                <span style="color: #4ade80;">📅</span>
+                <span>يناير 2026</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px; color: #64748b; font-size: 0.8rem;">
+                <span style="color: #818cf8;">🏷️</span>
+                <span>الإصدار 4.0</span>
+            </div>
+        </div>
+        
+        <!-- Copyright -->
+        <div style="padding-top: 25px; border-top: 1px solid rgba(255,255,255,0.05);">
+            <p style="color: #475569; font-size: 0.7rem;">وثيقة سرية - للاستخدام الداخلي فقط</p>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Animation
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scroll for TOC links
+        document.querySelectorAll('.toc-item').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
